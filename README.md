@@ -79,6 +79,7 @@ git push heroku master
 ## Integrating new tests
 
 **Back-end**
+
 There are a few steps to integrating new tests
 
 * Build the test, you should end up with a combination of an index.html file, and JavaScript and css files which are usually located in a static folder.
@@ -112,6 +113,7 @@ app.get('/REPLACE_WITH_DESIRED_URL_ENDPOINT', (req, res) => {
 ```
 
 **Front-end**
+
 There are a few steps necessary to integrate the test properly with the front-end, e.g. being able to initiate the test from the front-end, and seeing the results in the Student screen.
 
 First you need an image that represents your test, and shows what it looks like, afterwards you need to add this image to the following folder magno-platform/src/files.
@@ -152,9 +154,16 @@ import ImageOfTest from '../../files/ImageOfTest.jpg';
 
 Here you should replace the header text, the link and the text, the link is set directly for the component, whereas the header and text has to be set in the translationNO.tsx file, located in magno-platform/src/components/locales/no/translationNO.tsx, in addition you need to update the Translation.tsx interface located in magno-platform/src/components/locales/Translation.tsx.
 
-For Translation.tsx you should add two lines within tests, headerNAME_OF_YOUR_TEST: string and textNAME_OF_YOUR_TEST: string
+For Translation.tsx you should add two lines within tests
 
 ```
+Add
+
+headerNAME_OF_YOUR_TEST: string,
+textNAME_OF_YOUR_TEST: string
+
+to
+
 tests: {
     headerMotion: string,
     textMotion: string,
@@ -167,9 +176,16 @@ tests: {
 },
 ```
 
-For translationNO.tsx you should add two lines within tests headerNAME_OF_YOUR_TEST: "Name of your test" and textNAME_OF_YOUR_TEST: "Short description of your test"
+For translationNO.tsx you should add two lines within tests
 
 ```
+Add
+
+headerNAME_OF_YOUR_TEST: "Name of your test",
+textNAME_OF_YOUR_TEST: "Short description of your test"
+
+to 
+
 tests: {
     headerMotion: "Motion Test",
     textMotion: "Magno bevegelsestest er en test som gir en indikasjon på sannsynligheten for at eleven har dysleksi",
