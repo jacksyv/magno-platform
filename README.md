@@ -1,46 +1,46 @@
-# Getting Started with Create React App
+# Magno Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This platform is part of my master's thesis. It allows administration and testing of students using a motion detection test and two variations of a form detection test for use in dyslexia research. The platform is based on the following master theses:
 
-## Available Scripts
+* [Bjørnar Wold's App for Early Detection of Dyslexia](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2421182)
+* [Thea Hove Johansen and Maja Kirkerød's Magno: An Application for Detection of Dyslexia - Dyslexia and Interface Design](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2454100)
+* [Tore Angell Petersen's An Application for Detection of Dyslexia](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2557938)
+* [Fredrik Jenssen's Magno: An Application for Detection of Dyslexia](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2826619)
 
-In the project directory, you can run:
+The repository for the platform is available at the following URL https://github.com/jacksyvertsen/magno-platform
+The repository for the updated tests is available at https://github.com/jacksyvertsen/magno-tests
+With a deployed version running at https://magno-test.herokuapp.com/ it is recommended to register a user at Huseby Barneskole as this contains the most test data.
 
-### `npm start`
+## Usage
+**Dependencies**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+To run the application you need Node.js and npm installed. After cloning the project, simply run npm install within the directory to install all project dependencies. Afterwards, open a second command line window, and change directory the the server directory and run npm install again to install the server dependencies.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The project uses the following packages:
 
-### `npm test`
+* [TypeScript](https://www.typescriptlang.org/)
+* [Express](https://expressjs.com/)
+* [Crypto-js](https://www.npmjs.com/package/crypto-js)
+* [MaterialUI](https://mui.com/)
+* [Mobx](https://mobx.js.org/README.html)
+* [Recharts](https://recharts.org/)
+* [uuid](https://www.npmjs.com/package/react-uuid)
+* [@azure/cosmos](https://www.npmjs.com/package/@azure/cosmos)
+* [universal-cookie-express](https://www.npmjs.com/package/universal-cookie-express)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+**Development build**
+With dependencies installed, you need to have two command line interfaces open. One pointing to the platform directory, and one pointing to the server directory. To run the platform and server, enter the following command in both CLIs. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The website is hosted at localhost:3000.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Production build**
+To start the build procedure for the platform, run
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+npm run build
+```
