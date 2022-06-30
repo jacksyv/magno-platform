@@ -46,6 +46,8 @@ npm run build
 ```
 
 **Deployment**
+If you have not done so already, you should create a production build of the platform. The files from the production build will be located within magno-platform\build, copy all these files into the magno-platform\server\public folder before deployment.
+
 To deploy the platform for the first time, create a user at [Heroku](https://dashboard.heroku.com/new-app) and create a new app, choose a fitting name and region. 
 After this is done, you need to initiate a new git repository in the server folder, you can follow the instructions given under Deploy using Heroku Git on the page you are redirected to after creating the Heroku App.
 
@@ -75,6 +77,8 @@ git add .
 git commit -am "make it better"
 git push heroku master
 ```
+
+
 
 ## Integrating new tests
 
@@ -203,14 +207,11 @@ First you want to add a risk average, or "critical line" which separates a good 
 You add this in Settings.tsx located in magno-platform/src/components/Settings.tsx, just add a key-value pair to the riskAverages dictionary. An example of how this can be done is
 shown below, where you reaplce "my_test" and value. If your test has no such risk average, you can set the value to 0.
 
-*Important* 
-It is important that this key is equal to the key used when posting the test results to the server. More on this can be found under API endpoint for posting test results. 
-
 ```
 export const riskAverages = {"motion": 26, "form_fixed": 13, "form_random": 17, "my_test": value}
 ```
 
-The final step is to add a ChartCard to Student.tsx which is located at magno-platform/src/components/views/Student.tsx, it looks like this.
+The final step is to add a ChartCard to Student.tsx which is located at magno-platform/src/components/views/Student.tsx, it looks like this for the motion test.
 
 ```
 <ChartCard 
@@ -222,6 +223,50 @@ The final step is to add a ChartCard to Student.tsx which is located at magno-pl
 </ChartCard>
 ```
 
-Here you replace
+For your test, you would add something like the following.
 
-**API endpoint for posting test results**
+```
+<ChartCard 
+    header={props.translation.tests.headerNAME_OF_YOUR_TEST} 
+    riskScores={props.store.studentStore.student.tests.KEY_USED_WHEN_POSTING_TEST_RESULT_TO_SERVER}
+    riskAverages={props.store.studentStore.riskAverages}
+    translation={props.translation}
+    >
+</ChartCard>
+```
+
+KEY_USED_WHEN_POSTING_TEST_RESULT_TO_SERVER might be difficult to understand, but I'll try to make it more clear. The server receives test results when a test is finished through an API endpoint. This endpoint requires 3 parameters, 
+
+```
+postScore: async function(req, res){
+    const id = req.body.id;
+    const test_type = req.body.test_type;
+    const test_score = req.body.test_score;
+```
+
+The id represents the id of the student, the test_type is the essentially an identifier for the test, which you set yourself. For example, the motion test has a test_type of motion_test, the fixed form test has a test_type of fixed_form_test.
+This is what you would replace with KEY_USED_WHEN_POSTING_TEST_RESULT_TO_SERVER.
+
+The final change is a small one within the Chart.tsx file located at magno-platform/src/components. It includes simply adding another else if line, an example of how this should be done is shown below
+
+```
+function getAverageLine(){
+    if (props.testType.includes("Motion")){
+      return props.riskAverages["motion"]
+    }
+    else if (props.testType.includes("Form Fixed")){
+      return props.riskAverages["form_fixed"]
+    }
+    else if (props.testType.includes("Form Random")){
+      return props.riskAverages["form_random"]
+    }
+    else if (props.testType.includes("NAME_OF_YOUR_TEST")){
+      return props.riskAverages["MY_TEST_NAME_AS_SET_IN_riskAverages"]
+    }
+    return 0;
+  }
+```
+
+MY_TEST_NAME_AS_SET_IN_riskAverages would be the key used within the Settings.tsx file for adding a risk average line.
+
+The test is now fully integrated, and the test will now be hosted with the server upon deployment. 
